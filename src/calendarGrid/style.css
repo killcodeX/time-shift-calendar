@@ -1,7 +1,7 @@
 /* Container for the entire calendar */
 .calendar-container {
   font-family: Arial, sans-serif;
-  max-height: 750px;
+  max-height: calc(100vh - 40px);
   overflow: auto;
 }
 
