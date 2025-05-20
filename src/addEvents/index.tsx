@@ -86,8 +86,7 @@ const TimeEntryForm: React.FC<TimeEntryFormProps> = ({ events, setEvents }) => {
     setTimeEntries([{ personId: "", inTime: null, outTime: null }]);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     const newEvents = timeEntries.map((entry) => {
       const startHour = entry.inTime?.hour ?? 0;
       const startMinute = entry.inTime?.minute ?? 0;
@@ -102,7 +101,7 @@ const TimeEntryForm: React.FC<TimeEntryFormProps> = ({ events, setEvents }) => {
         color: `#${Math.floor(Math.random() * 16777215).toString(16)}`,
       };
     });
-    setEvents((prev) => [...prev, ...newEvents]);
+    setEvents([...newEvents]);
   };
 
   return (
