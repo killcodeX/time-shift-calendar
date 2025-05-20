@@ -81,6 +81,11 @@ const TimeEntryForm: React.FC<TimeEntryFormProps> = ({ events, setEvents }) => {
     setTimeEntries((prevEntries) => prevEntries.filter((_, i) => i !== index));
   };
 
+  const handleReset = () => {
+    setEvents([]);
+    setTimeEntries([{ personId: "", inTime: null, outTime: null }]);
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const newEvents = timeEntries.map((entry) => {
@@ -91,14 +96,13 @@ const TimeEntryForm: React.FC<TimeEntryFormProps> = ({ events, setEvents }) => {
 
       return {
         id: Date.now(), // Use a more reliable unique ID
-        title: `Person ${entry.personId}`,
+        title: `Person Name/ID: ${entry.personId}`,
         start: { hour: startHour, minute: startMinute },
         end: { hour: endHour, minute: endMinute },
         color: `#${Math.floor(Math.random() * 16777215).toString(16)}`,
       };
     });
     setEvents((prev) => [...prev, ...newEvents]);
-    setTimeEntries([{ personId: "", inTime: null, outTime: null }]);
   };
 
   return (
@@ -214,11 +218,14 @@ const TimeEntryForm: React.FC<TimeEntryFormProps> = ({ events, setEvents }) => {
       ))}
 
       <div style={buttonGroupStyle}>
-        <button type="button" onClick={handleAddTimeEntry} style={addButton}>
+        <button type="button" style={addButton} onClick={handleAddTimeEntry}>
           Add Entry
         </button>
         <button type="submit" style={submitButton} onClick={handleSubmit}>
           Submit
+        </button>
+        <button type="button" style={resetButton} onClick={handleReset}>
+          Reset
         </button>
       </div>
     </div>
@@ -230,7 +237,7 @@ const formContainerStyle: React.CSSProperties = {
   padding: "20px",
   backgroundColor: "#f8f8f8",
   borderRadius: "8px",
-  width: "300px",
+  width: "350px",
   overflowY: "auto",
 };
 
@@ -318,6 +325,16 @@ const addButton: React.CSSProperties = {
 const submitButton: React.CSSProperties = {
   padding: "10px 15px",
   backgroundColor: "#007bff",
+  color: "white",
+  border: "none",
+  borderRadius: "4px",
+  cursor: "pointer",
+  fontSize: "1em",
+};
+
+const resetButton: React.CSSProperties = {
+  padding: "10px 15px",
+  backgroundColor: "#ff0000",
   color: "white",
   border: "none",
   borderRadius: "4px",
