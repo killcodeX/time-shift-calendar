@@ -57,23 +57,7 @@ const sampleEvents = [
 ];
 
 function App() {
-  const [events, setEvents] = useState<BaseEvent[]>([
-    // Your initial events here (like sampleEvents)
-    {
-      id: 1,
-      title: "Team Meeting",
-      start: { hour: 10, minute: 0 },
-      end: { hour: 23, minute: 59 },
-      color: "#4285F4",
-    },
-    {
-      id: 2,
-      title: "Lunch Break",
-      start: { hour: 12, minute: 0 },
-      end: { hour: 13, minute: 0 },
-      color: "#0F9D58",
-    },
-  ]);
+  const [events, setEvents] = useState<BaseEvent[]>([]);
   return (
     <div className="main-container">
       <AddEvents events={events} setEvents={setEvents} />
@@ -85,3 +69,19 @@ function App() {
 }
 
 export default App;
+
+// Your initial events here (like sampleEvents)
+// {
+//   id: 1,
+//   title: "Team Meeting",
+//   start: { hour: 10, minute: 0 },
+//   end: { hour: 23, minute: 59 },
+//   color: "#4285F4",
+// },
+// {
+//   id: 2,
+//   title: "Lunch Break",
+//   start: { hour: 12, minute: 0 },
+//   end: { hour: 13, minute: 0 },
+//   color: "#0F9D58",
+// },
