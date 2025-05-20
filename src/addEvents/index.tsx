@@ -217,7 +217,7 @@ const TimeEntryForm: React.FC<TimeEntryFormProps> = ({ events, setEvents }) => {
         <button type="button" onClick={handleAddTimeEntry} style={addButton}>
           Add Entry
         </button>
-        <button type="submit" style={submitButton}>
+        <button type="submit" style={submitButton} onClick={handleSubmit}>
           Submit
         </button>
       </div>

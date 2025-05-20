@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AddEvents from "./addEvents";
 import CalendarGrid from "./calendarGrid";
 import "./App.css";
@@ -58,6 +58,9 @@ const sampleEvents = [
 
 function App() {
   const [events, setEvents] = useState<BaseEvent[]>([]);
+  // useEffect(() => {
+  //   console.log(events);
+  // }, [events]);
   return (
     <div className="main-container">
       <AddEvents events={events} setEvents={setEvents} />
