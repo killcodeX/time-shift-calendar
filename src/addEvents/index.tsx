@@ -7,13 +7,15 @@ interface Time {
 
 interface TimeEntry {
   personId: string;
+  personName: string;
   inTime: Time | null;
   outTime: Time | null;
 }
 
 type BaseEvent = {
-  id: number;
+  id: string;
   title: string;
+  name: string;
   start: { hour: number; minute: number };
   end: { hour: number; minute: number };
   color: string;
@@ -26,7 +28,7 @@ type TimeEntryFormProps = {
 
 const TimeEntryForm: React.FC<TimeEntryFormProps> = ({ events, setEvents }) => {
   const [timeEntries, setTimeEntries] = useState<TimeEntry[]>([
-    { personId: "", inTime: null, outTime: null },
+    { personId: "", personName: "", inTime: null, outTime: null },
   ]);
 
   const handleInputChange = (
@@ -40,6 +42,7 @@ const TimeEntryForm: React.FC<TimeEntryFormProps> = ({ events, setEvents }) => {
           ? {
               ...entry,
               personId: name === "personId" ? value : entry.personId,
+              personName: name === "personName" ? value : entry.personName,
               inTime:
                 name === "inTimeHour"
                   ? {
@@ -73,7 +76,7 @@ const TimeEntryForm: React.FC<TimeEntryFormProps> = ({ events, setEvents }) => {
   const handleAddTimeEntry = () => {
     setTimeEntries((prevEntries) => [
       ...prevEntries,
-      { personId: "", inTime: null, outTime: null },
+      { personId: "", personName: "", inTime: null, outTime: null },
     ]);
   };
 
@@ -82,26 +85,36 @@ const TimeEntryForm: React.FC<TimeEntryFormProps> = ({ events, setEvents }) => {
   };
 
   const handleReset = () => {
+    // Clear events completely
     setEvents([]);
-    setTimeEntries([{ personId: "", inTime: null, outTime: null }]);
+    // Reset time entries to initial state
+    setTimeEntries([
+      { personId: "", personName: "", inTime: null, outTime: null },
+    ]);
   };
 
   const handleSubmit = () => {
-    const newEvents = timeEntries.map((entry) => {
+    const newEvents = timeEntries.map((entry, index) => {
       const startHour = entry.inTime?.hour ?? 0;
       const startMinute = entry.inTime?.minute ?? 0;
       const endHour = entry.outTime?.hour ?? 0;
       const endMinute = entry.outTime?.minute ?? 0;
 
       return {
-        id: Date.now(), // Use a more reliable unique ID
-        title: `Person Name/ID: ${entry.personId}`,
+        // Generate unique ID using timestamp + index
+        id: `${Date.now()}-${index}`,
+        title: `Person ID: ${entry.personId}`,
+        name: `Person Name: ${entry.personName}`,
         start: { hour: startHour, minute: startMinute },
         end: { hour: endHour, minute: endMinute },
-        color: `#${Math.floor(Math.random() * 16777215).toString(16)}`,
+        color: `#${Math.floor(Math.random() * 8388607)
+          .toString(16)
+          .padStart(6, "0")}`,
       };
     });
-    setEvents([...newEvents]);
+
+    // Replace events entirely (not append)
+    setEvents(newEvents);
   };
 
   return (
@@ -118,6 +131,19 @@ const TimeEntryForm: React.FC<TimeEntryFormProps> = ({ events, setEvents }) => {
               id={`personId-${index}`}
               name="personId"
               value={entry.personId}
+              onChange={(e) => handleInputChange(index, e)}
+              style={inputStyle}
+            />
+          </div>
+          <div style={inputGroupStyle}>
+            <label htmlFor={`personName-${index}`} style={labelStyle}>
+              Person Name:
+            </label>
+            <input
+              type="text"
+              id={`personName-${index}`}
+              name="personName"
+              value={entry.personName}
               onChange={(e) => handleInputChange(index, e)}
               style={inputStyle}
             />

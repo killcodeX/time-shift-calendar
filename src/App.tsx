@@ -9,8 +9,9 @@ interface Time {
 }
 
 type BaseEvent = {
-  id: number;
+  id: string;
   title: string;
+  name: string;
   start: { hour: number; minute: number };
   end: { hour: number; minute: number };
   color: string;
@@ -58,9 +59,9 @@ const sampleEvents = [
 
 function App() {
   const [events, setEvents] = useState<BaseEvent[]>([]);
-  // useEffect(() => {
-  //   console.log(events);
-  // }, [events]);
+  useEffect(() => {
+    console.log(events);
+  }, [events]);
   return (
     <div className="main-container">
       <AddEvents events={events} setEvents={setEvents} />

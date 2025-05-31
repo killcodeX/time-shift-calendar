@@ -43,3 +43,166 @@ body {
   height: calc(100% - 40px);
   width: calc(100% - 40px);
 }
+
+/* Container for the entire calendar */
+.calendar-container {
+  font-family: Arial, sans-serif;
+  max-height: calc(100vh - 40px);
+  overflow: auto;
+}
+
+/* Main grid structure */
+.calendar-grid {
+  position: relative;
+  border: 1px solid #d0d9ff;
+  min-height: 1440px; /* 24 hours * 60px */
+}
+
+/* Time labels column */
+.time-labels {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 60px;
+  height: 100%;
+  border-right: 1px solid #d0d9ff;
+  background-color: #f8f9ff;
+  z-index: 1;
+}
+
+/* Individual hour label */
+.hour-label {
+  height: 60px;
+  position: relative;
+  border-bottom: 1px solid #d0d9ff;
+}
+
+/* Hour text styling */
+.hour-text {
+  position: absolute;
+  right: 10px;
+  top: 0px;
+  font-size: 12px;
+  color: #70757a;
+}
+
+/* Main time grid area */
+.time-grid {
+  margin-left: 60px;
+  background-color: #ffffff;
+}
+
+/* Hour row styling */
+.hour-row {
+  height: 60px;
+  border-bottom: 1px solid #d0d9ff;
+  position: relative;
+}
+
+/* Half-hour divider */
+.half-hour {
+  position: absolute;
+  top: 30px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: #e1e8fd;
+}
+
+/* Quarter-hour dividers */
+.quarter-hour {
+  position: absolute;
+  height: 1px;
+  left: 0;
+  right: 0;
+  background-color: #f1f3fd;
+}
+
+/* Position quarter-hour dividers */
+.quarter-hour:nth-child(2) {
+  top: 15px;
+}
+
+.quarter-hour:nth-child(3) {
+  top: 45px;
+}
+
+.quarter-hour:nth-child(4) {
+  display: none; /* Hide the fourth one since it overlaps with the next hour */
+}
+
+/* Layer for displaying events */
+.events-layer {
+  position: absolute;
+  top: 0;
+  left: 61px; /* Align with time grid, after labels + border */
+  right: 0;
+  height: 100%;
+  pointer-events: auto; /* Enable interaction with events */
+}
+
+/* Individual event styling - FIXED FOR PERCENTAGE POSITIONING */
+.event-item {
+  position: absolute;
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: white;
+  font-size: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.2s ease, transform 0.1s ease;
+  cursor: pointer;
+  box-sizing: border-box; /* Changed from border-box */
+
+  /* Remove conflicting positioning - let JavaScript handle left/width */
+  /* Ensure minimum height for very short events */
+  min-height: 20px;
+
+  /* Add small margin to prevent events from touching edges */
+  margin: 0 2px;
+}
+
+.event-item:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  transform: translateY(-1px);
+  z-index: 10; /* Bring hovered event to front */
+}
+
+/* Event title styling */
+.event-title {
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Event time info styling */
+.event-time {
+  opacity: 0.9;
+  font-size: 11px;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Style for current time indicator (optional feature) */
+.current-time-indicator {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #ea4335;
+  z-index: 2;
+}
+
+.current-time-dot {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #ea4335;
+  left: 55px;
+  transform: translateY(-5px);
+  z-index: 2;
+}

@@ -1,23 +1,26 @@
 import { useState, useEffect } from "react";
 import {
   formatHourToAMPM,
+  formatTimeToAMPM,
   formatMinutes,
   processingEvents,
   calculateEventStyle,
 } from "./utils";
-import "./style.css";
+// import "./style.css";
 
 type BaseEvent = {
-  id: number;
+  id: string;
   title: string;
+  name: string;
   start: { hour: number; minute: number };
   end: { hour: number; minute: number };
   color: string;
 };
 
 type ProcessedEvent = {
-  id: number;
+  id: string;
   title: string;
+  name: string;
   start: { hour: number; minute: number };
   end: { hour: number; minute: number };
   color: string;
@@ -32,6 +35,7 @@ type CalendarGridProps = {
 
 function CalendarGrid({ events }: CalendarGridProps) {
   const [processedEvents, setProcessedEvents] = useState<ProcessedEvent[]>([]);
+  console.log(processedEvents);
 
   // Process events to handle overlaps
   useEffect(() => {
@@ -75,11 +79,10 @@ function CalendarGrid({ events }: CalendarGridProps) {
               style={calculateEventStyle(event)}
             >
               <div className="event-title">{event.title}</div>
+              <div className="event-title">{event.name}</div>
               <div className="event-time">
-                {formatHourToAMPM(event.start.hour)}:
-                {formatMinutes(event.start.minute)} -
-                {formatHourToAMPM(event.end.hour)}:
-                {formatMinutes(event.end.minute)}
+                {formatTimeToAMPM(event.start.hour, event.start.minute)} -{" "}
+                {formatTimeToAMPM(event.end.hour, event.end.minute)}
               </div>
             </div>
           ))}
