@@ -72,7 +72,7 @@ body {
 
 /* Individual hour label */
 .hour-label {
-  height: 60px;
+  height: 59px;
   position: relative;
   border-bottom: 1px solid #d0d9ff;
 }
@@ -159,7 +159,7 @@ body {
   min-height: 20px;
 
   /* Add small margin to prevent events from touching edges */
-  margin: 0 2px;
+  /* margin: 0 2px; */
 }
 
 .event-item:hover {
